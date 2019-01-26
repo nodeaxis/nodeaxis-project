@@ -1,0 +1,98 @@
+{
+  "name": "nodeaxis/nodeaxis-project",
+  "description": "Project template for Nodeaxis distribution.",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Mahmoud Zayed",
+      "homepage": "https://www.drupal.org/u/mahmoud-zayed",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "http://drupal.org/project/issues/nodeaxis",
+    "source": "http://cgit.drupalcode.org/nodeaxis"
+  },
+  "config": {
+    "preferred-install": {
+      "drupal/core": "dist"
+    },
+    "platform": {
+      "php": "7.0.8"
+    }
+  },
+  "repositories": {
+    "drupal": {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    "assets": {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  },
+  "require": {
+    "cweagans/composer-patches": "^1.6.4",
+    "drupal-composer/drupal-scaffold": "^2.0.0",
+    "composer/installers": "^1.2",
+    "drupal/nodeaxis": "1.x-dev"
+  },
+  "require-dev": {
+    "drush/drush": "^9.0"
+  },
+  "extra": {
+    "installer-types": [
+      "bower-asset",
+      "npm-asset"
+    ],
+    "installer-paths": {
+      "docroot/core": [
+        "type:drupal-core"
+      ],
+      "docroot/profiles/contrib/{$name}": [
+        "type:drupal-profile"
+      ],
+      "docroot/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "docroot/themes/contrib/{$name}": [
+        "type:drupal-theme"
+      ],
+      "docroot/libraries/{$name}": [
+        "type:drupal-library",
+        "type:bower-asset"
+      ],
+      "drush/contrib/{$name}": [
+        "type:drupal-drush"
+      ]
+    },
+    "enable-patching": true,
+    "patchLevel": {
+      "drupal/core": "-p2"
+    },
+    "composer-exit-on-patch-failure": true
+  },
+  "autoload": {
+    "psr-4": {
+      "DrupalProject\\composer\\": "scripts/composer/"
+    }
+  },
+  "scripts": {
+    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+    "pre-install-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+    ],
+    "pre-update-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+    ],
+    "post-install-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+    ],
+    "post-update-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+    ]
+  }
+}
